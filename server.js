@@ -76,7 +76,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-app.post('https://todo-manager-3eel.onrender.com/signup', upload.single('image'), async (req, res) => {
+app.post("https://todo-manager-3eel.onrender.com/signup", upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
 
