@@ -76,7 +76,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-app.post("https://todo-manager-3eel.onrender.com/signup", upload.single('image'), async (req, res) => {
+app.post(`${baseURl}/signup`, upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
 
@@ -116,7 +116,7 @@ app.post("https://todo-manager-3eel.onrender.com/signup", upload.single('image')
 });
 
 
-app.post("/login", async (req, res) => {
+app.post(`${baseURl}/login`, async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -147,7 +147,7 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.get('/todos',authenticate,async (req,res)=>{
+app.get(`${baseURl}/todos`,authenticate,async (req,res)=>{
 
   const userId = req.user._id;
 
@@ -157,7 +157,7 @@ app.get('/todos',authenticate,async (req,res)=>{
 
 });
 
-app.post('/todo/new', authenticate,(req, res) => {
+app.post(`${baseURl}/todo/new`, authenticate,(req, res) => {
     const todo = Todo({
       text: req.body.text,
       userId:req.user._id,
@@ -175,18 +175,18 @@ app.post('/todo/new', authenticate,(req, res) => {
   
 
 
-app.delete('/todo/delete/:id',async(req,res)=>{
+app.delete(`${baseURl}/todo/delete/:id`,async(req,res)=>{
  
 const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
 
-  app.get('/test',async(req,res)=>{
+  app.get(`${baseURl}/test`,async(req,res)=>{
     res.status(200).send('Test okey');
   });
 
 
-app.get('/todo/complete/:id', async (req, res) => {
+app.get(`${baseURl}/todo/complete/:id`, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
@@ -206,13 +206,13 @@ app.get('/todo/complete/:id', async (req, res) => {
 
 
 
-app.get("/current-user", authenticate, async (req, res) => {
+app.get(`${baseURl}/current-user`, authenticate, async (req, res) => {
   res.status(200).json(req.user);
 });
 
 
 
-app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
+app.put(`${baseURl}/edit-profile`, authenticate, upload.single("image"), async (req, res) => {
   const { email, password, name } = req.body;
   const { user } = req;
 
