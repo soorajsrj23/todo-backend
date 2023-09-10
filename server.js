@@ -17,6 +17,7 @@ dotenv.config();
 
 const dbURI = process.env.URI;
 const PORT=process.env.PORT || 5000;
+const baseURl=process.env.BASE_URL;
 
 // Create a connection to MongoDB
 mongoose.connect(dbURI).then(()=>{
@@ -75,7 +76,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-app.post('/signup', upload.single('image'), async (req, res) => {
+app.post(`${baseURl}/signup`, upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
 
