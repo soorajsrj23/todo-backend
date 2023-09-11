@@ -154,7 +154,7 @@ app.post(`/login`, async (req, res) => {
 });
 
 
-app.get(`${baseURl}/todos`,authenticate,async (req,res)=>{
+app.get(`/todos`,authenticate,async (req,res)=>{
 
   const userId = req.user._id;
 
@@ -164,7 +164,7 @@ app.get(`${baseURl}/todos`,authenticate,async (req,res)=>{
 
 });
 
-app.post(`${baseURl}/todo/new`, authenticate,(req, res) => {
+app.post(`/todo/new`, authenticate,(req, res) => {
     const todo = Todo({
       text: req.body.text,
       userId:req.user._id,
@@ -188,17 +188,15 @@ const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
 
-app.get(`https://todo-manager-3eel.onrender.com/test`,async(req,res)=>{
+app.get(`/test`,async(req,res)=>{
     res.status(200).send('Test okey');
 });
-app.get(`https://todo-manager-3eel.onrender.com/`,async(req,res)=>{
-    res.status(200).send('Welcome User');
-});
+
 app.get(`/`,async(req,res)=>{
     res.status(200).send('Route');
 });
 
-app.get(`${baseURl}/todo/complete/:id`, async (req, res) => {
+app.get(`/todo/complete/:id`, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
@@ -218,13 +216,13 @@ app.get(`${baseURl}/todo/complete/:id`, async (req, res) => {
 
 
 
-app.get(`${baseURl}/current-user`, authenticate, async (req, res) => {
+app.get(`/current-user`, authenticate, async (req, res) => {
   res.status(200).json(req.user);
 });
 
 
 
-app.put(`${baseURl}/edit-profile`, authenticate, upload.single("image"), async (req, res) => {
+app.put(`/edit-profile`, authenticate, upload.single("image"), async (req, res) => {
   const { email, password, name } = req.body;
   const { user } = req;
 
