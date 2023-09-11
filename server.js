@@ -9,7 +9,7 @@ const app =express();
 
 app.use(express.json());
 const corsOptions = {
-  origin: "https://todo-frontend-08xp.onrender.com/",
+  origin: "https://todo-frontend-08xp.onrender.com",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // You may need to set this depending on your use case
 };
