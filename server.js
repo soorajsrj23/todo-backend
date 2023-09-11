@@ -188,7 +188,7 @@ const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
 
-app.get(`${baseURl}/test`,async(req,res)=>{
+app.get(`https://todo-manager-3eel.onrender.com/test`,async(req,res)=>{
     res.status(200).send('Test okey');
 });
 
