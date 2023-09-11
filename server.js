@@ -191,7 +191,12 @@ const result= await Todo.findByIdAndDelete(req.params.id);
 app.get(`https://todo-manager-3eel.onrender.com/test`,async(req,res)=>{
     res.status(200).send('Test okey');
 });
-
+app.get(`https://todo-manager-3eel.onrender.com/`,async(req,res)=>{
+    res.status(200).send('Welcome User');
+});
+app.get(`/`,async(req,res)=>{
+    res.status(200).send('Route');
+});
 
 app.get(`${baseURl}/todo/complete/:id`, async (req, res) => {
   try {
