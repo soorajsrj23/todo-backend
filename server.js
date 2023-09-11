@@ -8,7 +8,14 @@ const jwt = require("jsonwebtoken");
 const app =express();
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: "https://your-todo-manager.netlify.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // You may need to set this depending on your use case
+};
+
+app.use(cors(corsOptions));
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const dotenv=require("dotenv")
@@ -76,7 +83,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-app.post(`${baseURl}/signup`, upload.single('image'), async (req, res) => {
+app.post(`/signup`, upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
 
@@ -116,7 +123,7 @@ app.post(`${baseURl}/signup`, upload.single('image'), async (req, res) => {
 });
 
 
-app.post(`${baseURl}/login`, async (req, res) => {
+app.post(`/login`, async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -181,9 +188,9 @@ const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
 
-  app.get(`${baseURl}/test`,async(req,res)=>{
+app.get(`${baseURl}/test`,async(req,res)=>{
     res.status(200).send('Test okey');
-  });
+});
 
 
 app.get(`${baseURl}/todo/complete/:id`, async (req, res) => {
