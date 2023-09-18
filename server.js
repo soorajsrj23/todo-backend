@@ -7,14 +7,10 @@ const jwt = require("jsonwebtoken");
 
 const app =express();
 
-app.use(express.json());
-const corsOptions = {
-  origin: "https://todo-frontend-08xp.onrender.com",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // You may need to set this depending on your use case
-};
 
-app.use(cors(corsOptions));
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -24,7 +20,7 @@ dotenv.config();
 
 const dbURI = process.env.URI;
 const PORT=process.env.PORT || 5000;
-const baseURl=process.env.BASE_URL;
+
 
 // Create a connection to MongoDB
 mongoose.connect(dbURI).then(()=>{
@@ -182,7 +178,7 @@ app.post(`/todo/new`, authenticate,(req, res) => {
   
 
 
-app.delete(`${baseURl}/todo/delete/:id`,async(req,res)=>{
+app.delete(`/todo/delete/:id`,async(req,res)=>{
  
 const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
